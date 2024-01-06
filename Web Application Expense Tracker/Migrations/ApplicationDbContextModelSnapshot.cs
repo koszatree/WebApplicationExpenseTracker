@@ -17,7 +17,7 @@ namespace Web_Application_Expense_Tracker.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.21")
+                .HasAnnotation("ProductVersion", "6.0.25")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -44,7 +44,7 @@ namespace Web_Application_Expense_Tracker.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Web_Application_Expense_Tracker.Models.Transaction", b =>
@@ -71,7 +71,7 @@ namespace Web_Application_Expense_Tracker.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Web_Application_Expense_Tracker.Models.Transaction", b =>

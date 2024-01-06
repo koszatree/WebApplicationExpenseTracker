@@ -1,18 +1,117 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot?v=6.5.1');
+    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=6.5.1') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=6.5.1') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=v') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=6.5.1') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=6.5.1#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    font-family: 'Josefin Sans';
+}
+
+i {
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #12161d;
+    color: #ffff;
 }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+* {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.e-bigger {
+    font-size: x-large;
+}
+
+.e-btn-group.custom-rbt-group {
+    width: 100%;
+}
+
+    .e-btn-group.custom-rbt-group .e-btn {
+        width: 50%;
+    }
+
+.custom-rbt-group label.e-btn {
+    box-shadow: none !important;
+    border: 1px solid #fff;
+    background-color: rgb(34 43 51);
+    color: #fff;
+}
+
+.e-btn-group.custom-rbt-group input:checked + label.e-btn {
+    background-color: #fff;
+    color: #212b36;
+    border: 1px solid #fff;
+}
+
+.widget {
+    border-radius: 2rem;
+    background-color: #1a222b;
+}
+
+.btn:focus, .btn:active{
+    outline: none !important;
+    box-shadow: none;
+}
+
+.no-a-decoration, .no-a-decoration:hover{
+    text-decoration: none;
+    color: inherit;
+}
+
+.e-grid {
+    border: 0;
+    border-radius: 5px;
+}
+
+    .e-grid .e-gridcontent, .e-grid .e-table {
+        background-color: #1a222b;
+    }
+
+    .e-grid .e-gridheader {
+        border: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        padding: 10px;
+        background-color: #222b33;
+    }
+
+        .e-grid .e-gridheader .e-headercell {
+            background-color: #222b33;
+        }
+
+    .e-grid .e-gridpager {
+        background-color: #1a222b;
+    }
+
+    .e-grid .e-pagercontainer {
+        border: none;
+        background-color: #1a222b;
+    }
+
+    .e-grid .e-content table {
+        padding: 0px 10px;
+    }
