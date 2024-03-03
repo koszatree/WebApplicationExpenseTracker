@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Web_Application_Expense_Tracker.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["PageTitle"] = "Categories";
+    ViewData["PageActionText"] = "Add New Category";
+    ViewData["PageActionUrl"] = "/Category/Create";
 }
 
 <div class="row">
@@ -18,7 +20,7 @@
 </div>
 
 <script id="typeColumnTemplate" type="text/x-template">
-    ${if(Type=="Expanse")}
+    ${if(Type=="Expense")}
         <span class="badge bg-danger">${Type}</span>
     ${else}
         <span class="badge bg-success">${Type}</span>

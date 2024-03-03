@@ -1,11 +1,9 @@
 ﻿@model Web_Application_Expense_Tracker.Models.Category
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["PageTitle"] = "Create";
 }
 
-<h1>Create</h1>
-<hr />
 <div class="row">
     <div class="col-md-7">
         <div class="widget p-5">
@@ -13,7 +11,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
                     <div class='e-btn-group custom-rbt-group'>
-                        <input type="radio" id="radioleft" name="Type" value="Expanse" checked="@(Model.Type=="Expanse")" />
+                        <input type="radio" id="radioleft" name="Type" value="Expense" checked="@(Model.Type=="Expense")" />
                         <label class="e-btn" for="radioleft">Expense</label>
                         <input type="radio" id="radiomiddle" name="Type" value="Income" checked="@(Model.Type=="Income")" />
                         <label class="e-btn" for="radiomiddle">Income</label>
@@ -23,12 +21,12 @@
 
                 <div class="mb-3">
                     <ejs-textbox id="title" placeholder="Title" ejs-for="Title" floatLabelType="Always"></ejs-textbox>
-                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <span asp-validation-for="Title" class="text-danger fs-6"></span>
                 </div>
 
                 <div class="mb-3">
                     <ejs-textbox id="icon" placeholder="Icon" ejs-for="Icon" floatLabelType="Always"></ejs-textbox>
-                    <span asp-validation-for="Icon" class="text-danger"></span>
+                    <span asp-validation-for="Icon" class="text-danger fs-6"></span>
                 </div>
 
                 <ejs-button id="submit" cssClass="e-success" type="submit" content="Submit"></ejs-button>
@@ -41,6 +39,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@* @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+} *@

@@ -1,0 +1,38 @@
+﻿@model Web_Application_Expense_Tracker.Models.Transaction
+
+@{
+    ViewData["Title"] = "Edit transaction";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="TransactionId" />
+                <div class="mb-3">
+                    <ejs-datepicker id="date" ejs-for="Date" placeholder="Date" floatLabelType="Always" format="dd-MMM-yyyy"></ejs-datepicker>
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-dropdownlist id="ddlCategory" ejs-for="CategoryId" dataSource="@ViewBag.Categories" placeholder="Category" floatLabelType="Always" popupHeight="200px">
+                        <e-dropdownlist-fields value="CategoryId" text="TitleWithIcon"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                </div>
+                <div class="mb-3">
+                    <ejs-numerictextbox id="amount" ejs-for="Amount" placeholder="Amount" floatLabelType="Always" min=0 format="c0"></ejs-numerictextbox>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <ejs-button id="submit" cssClass="e-success" type="submit" content="Submit"></ejs-button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

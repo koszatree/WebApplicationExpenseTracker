@@ -9,9 +9,11 @@ namespace Web_Application_Expense_Tracker.Models
         public int CategoryId { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
+        [Required(ErrorMessage = "Required title.")]
         public string Title { get; set; }
 
         [Column(TypeName = "nvarchar(5)")]
+        [Required(ErrorMessage = "Required icon.")]
         public string Icon { get; set; } = "";
 
         [Column(TypeName = "nvarchar(10)")]
