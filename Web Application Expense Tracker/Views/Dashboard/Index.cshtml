@@ -48,7 +48,7 @@
     <div class="col-md-4">
         <div class="widget chart">
             <div class="title p-4">
-                <h5 class="fw-bold">Expense by Category</h5>
+                <h5 class="fw-bold text-center">Expense by Category</h5>
             </div>
             <ejs-accumulationchart id="donutchart" background="#1a222b" enableSmartLabels="true">
                 <e-accumulation-series-collection>
@@ -63,5 +63,32 @@
             </ejs-accumulationchart>
         </div>
     </div>
-    <div class="col-md-8"></div>
+    <div class="col-md-8">
+        <div class="widget chart">
+            <div class="title p-4">
+                <h5 class="fw-bold text-center">Income and Expense Comparison</h5>
+            </div>
+            <ejs-chart id="splite-chart" background="#1a222b" palettes=@(new string[] {"#65d420", "#de2c2c"})>
+                <e-chart-primaryxaxis valueType="Category">
+                    <e-majorgridlines width="0"></e-majorgridlines>
+                </e-chart-primaryxaxis>
+                <e-chart-primaryyaxis>
+                    <e-majorgridlines width="1" color="#32414d" dashArray="3,5"></e-majorgridlines>
+                    <e-majorticklines width="0"></e-majorticklines>
+                    <e-linestyle width="0"></e-linestyle>
+                </e-chart-primaryyaxis>
+                <e-chart-chartarea>
+                    <e-chartarea-border width="0"></e-chartarea-border>
+                </e-chart-chartarea>
+                <e-series-collection>
+                    <e-series dataSource="@ViewBag.SplineChartData" xName="day" yName="income" name="Income" width="3" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                    <e-series dataSource="@ViewBag.SplineChartData" xName="day" yName="expense" name="Expense" width="3" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                </e-series-collection>
+                <e-chart-legendsettings position="Top" alignment="Far">
+                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                </e-chart-legendsettings>
+                <e-chart-tooltipsettings enable="true" shared="true"></e-chart-tooltipsettings>
+            </ejs-chart>
+        </div>
+    </div>
 </div>
