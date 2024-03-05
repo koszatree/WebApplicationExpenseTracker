@@ -36,6 +36,23 @@ body {
     color: #ffff;
 }
 
+nav.navbar {
+    background-color: rgba(18, 22, 29);
+}
+    
+    nav.navbar i {
+        padding: 10px;
+        border-radius: 60%;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+        nav.navbar i:hover, nav.navbar img:hover {
+            cursor: pointer;
+            background-color: #48545f14;
+            transform: scale(1.05) translateZ(0px);
+        }
+
 footer {
     position: absolute;
     bottom: 0;
