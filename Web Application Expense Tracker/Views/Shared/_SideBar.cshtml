@@ -2,9 +2,57 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<Object> menuItems = new List<Object>();
+
+    menuItems.Add(new
+    {
+        text = "Dashboard",
+        url = "/",
+        iconCss = "fa-solid fa-box",
+    });
+    menuItems.Add(new
+    {
+        text = "Categories",
+        url = "/Category",
+        iconCss = "fa-solid fa-folder-closed"
+        // To fix - not working when you are already in category page
+        // items = new List<Object>()
+        // {
+        //     new {text = "Create", url = "Category/Create"},
+        //     new {text = "Edit", url = "Category/Edit"}
+        // }
+    });
+    menuItems.Add(new
+    {
+        text = "Transactions",
+        url = "/Transaction",
+        iconCss = "fa-solid fa-arrow-right-arrow-left",
+    });
 }
 
 
-<ejs-sidebar id="sidebar" width ="300px">
+<ejs-sidebar id="sidebar" width ="260px" enableDock="true" dockSize="100px" target=".dock-target" enableGestures="false">
+    <e-content-template>
 
+        <div class="logo-wrapper">
+            <div class="app-logo">
+                <img src="~/favicon-32x32.png"/>
+            </div>
+            <div class="w-100"></div>
+                <i id="sidebar-toggler" class="fa-solid"></i>
+        </div>
+
+        <ejs-menu id="menu" orientation="Vertical" hamburgerMode="true" items="menuItems">
+
+        </ejs-menu>
+    </e-content-template>
 </ejs-sidebar>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        dockBar = document.getElementById('sidebar').ej2_instances[0];
+        document.getElementById('sidebar-toggler').onclick = function () {
+            dockBar.toggle();
+        };
+    });
+</script>
