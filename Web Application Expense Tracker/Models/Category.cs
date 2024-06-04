@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Web_Application_Expense_Tracker.Areas.Identity.Data;
 
 namespace Web_Application_Expense_Tracker.Models
 {
@@ -7,6 +8,8 @@ namespace Web_Application_Expense_Tracker.Models
     {
         [Key]
         public int CategoryId { get; set; }
+
+        public List<AppUser> Users { get; } = [];
 
         [Column(TypeName = "nvarchar(50)")]
         [Required(ErrorMessage = "Required title.")]

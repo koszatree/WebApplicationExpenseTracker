@@ -8,14 +8,6 @@ html {
     }
 }
 
-@font-face {
-    font-family: 'FontAwesome 6 free';
-    src: url('../fonts/fontawesome-webfont.eot?v=6.5.1');
-    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=6.5.1') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=6.5.1') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=v') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=6.5.1') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=6.5.1#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 html {
     position: relative;
     min-height: 100%;
@@ -32,12 +24,12 @@ i {
 
 body {
     margin-bottom: 60px;
-    background-color: #12161d;
+    background-color: #0B1D36;
     color: #ffff;
 }
 
 nav.navbar {
-    background-color: rgba(18, 22, 29);
+    background-color: #0A1A2F;
 }
     
     nav.navbar i {
@@ -49,7 +41,7 @@ nav.navbar {
 
         nav.navbar i:hover, nav.navbar img:hover {
             cursor: pointer;
-            background-color: #48545f14;
+            background-color: #0A1A2F;
             transform: scale(1.05) translateZ(0px);
         }
 
@@ -158,14 +150,16 @@ footer {
 
 .widget {
     border-radius: 2rem;
-    background-color: #1a222b;
+    background-color: #0A1A2F;
+    border: 1px solid rgb(171, 163, 152);
 }
-    
+
     .widget.summary > div:first-child {
-        background-color: #222b33;
+        background-color: #09172A;
         padding: 1rem;
         border-top-left-radius: 1rem;
         border-bottom-left-radius: 1rem;
+        border: 1px solid rgb(171, 163, 152);
     }
 
         .widget.summary > div:first-child i {
@@ -199,33 +193,35 @@ footer {
 }
 
 .e-grid {
-    border: 0;
+    border: 1px solid rgb(171, 163, 152);
     border-radius: 5px;
 }
 
     .e-grid .e-gridcontent, .e-grid .e-table {
-        background-color: #1a222b;
+        background-color: #0A1A2F;
     }
 
     .e-grid .e-gridheader {
-        border: 5px;
+        border: 1px solid rgb(171, 163, 152);
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         padding: 10px;
-        background-color: #222b33;
+        background-color: #09172A;
     }
 
         .e-grid .e-gridheader .e-headercell {
-            background-color: #222b33;
+            background-color: #09172A;
         }
 
+
     .e-grid .e-gridpager {
-        background-color: #1a222b;
+        border: 1px solid rgb(171, 163, 152);
+        background-color: #09172A;
     }
 
     .e-grid .e-pagercontainer {
         border: none;
-        background-color: #1a222b;
+        background-color: #09172A;
     }
 
     .e-grid .e-content table {
@@ -233,10 +229,12 @@ footer {
     }
 
 #sidebar {
-    background-color: #12161d;
-    border-right: 1px dashed rgba(75, 82, 85, 0.24);
+    background-color: #09172A;
+    border-right: 1px solid rgb(171, 163, 152);
     padding: 10px 20px;
     overflow: hidden;
+    color: rgb(171, 163, 152);
+    height: 100%;
 }
 
     #sidebar .e-menu-wrapper {
@@ -245,10 +243,12 @@ footer {
     }
 
 #sidebar-toggler {
-        padding: 10px;
-        border-radius: 60%;
-        font-size: 1.2rem;
-        cursor: pointer;
+
+    padding: 10px;
+    border-radius: 60%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding-top: 20px;
 }
 
     #sidebar-toggler:hover {
@@ -290,9 +290,9 @@ footer {
 }
 
 #sidebar.e-open #sidebar-toggler:before {
-    content: '\f100'
+    content: '<<';
 }
 
 #sidebar.e-close #sidebar-toggler:before {
-    content: '\f101'
+    content: '>>';
 }

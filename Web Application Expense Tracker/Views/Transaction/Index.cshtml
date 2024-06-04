@@ -11,10 +11,10 @@
         <ejs-grid id="transactions" dataSource="@Model" allowPaging="true" allowSorting="true">
             <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
             <e-grid-columns>
-                <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
-                <e-grid-column headerText="Date" field="Date" width="120px" type="Date" format="dd-MMM-yyyy" textAlign="Left"></e-grid-column>
-                <e-grid-column headerText="Amount" field="PositiveOrNegativeAmount" width="120px" textAlign="Right"></e-grid-column>
-                <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="100px"></e-grid-column>
+                <e-grid-column headerText="Category" field="CategoryTitleWithIcon" textAlign="Left"></e-grid-column>
+                <e-grid-column headerText="Date" field="Date" width="120px" type="Date" format="dd-MMM-yyyy" textAlign="Center"></e-grid-column>
+                <e-grid-column headerText="Amount" field="PositiveOrNegativeAmount" width="200px" textAlign="Center"></e-grid-column>
+                <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="100px" textAlign="Center"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
@@ -22,13 +22,11 @@
 
 <script id="actionColumnTemplate" type="text/x-template">
     <div class="d-flex flex-row justify-content-start">
-        <a class="btn btn-sm no-a-decoration" href="/Transaction/Edit/${TransactionId}">
-            <i class="fa-solid fa-pen"></i> @* NIE WYŚWIETLA SIĘ IKONKA DŁUGOPISU - NAPRAWIĆ !!! *@
-        </a>
+        <a class="btn btn-sn fa-solid fa-pencil mt-2 text-success" href="/Transaction/Edit/${TransactionId}"></a>
         <form action="/Transaction/Delete/${TransactionId}" method="post">
             @Html.AntiForgeryToken()
-            <button type="submit" class="btn btn-sn btn-link no-a-decoration" onclick="return confirm(&quot;Are you sure autofocus delete this record?&quot;)">
-                <i class="fa fa-trash-can fa-lg text-danger"></i>
+            <button type="submit" class="btn btn-sn btn-link" onclick="return confirm(&quot;Are you sure autofocus delete this record?&quot;)">
+                <a class="fa fa-trash-can lh-lg text-danger"></a>
             </button>
         </form>
     </div>

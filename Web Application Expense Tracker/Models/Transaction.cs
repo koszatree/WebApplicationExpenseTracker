@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
+using Web_Application_Expense_Tracker.Areas.Identity.Data;
 
 namespace Web_Application_Expense_Tracker.Models
 {
@@ -8,6 +9,7 @@ namespace Web_Application_Expense_Tracker.Models
     {
         [Key]
         public int TransactionId { get; set; }
+        public AppUser? User { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Select a category.")]
         public int CategoryId { get; set; }
