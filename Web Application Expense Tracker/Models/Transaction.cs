@@ -9,6 +9,7 @@ namespace Web_Application_Expense_Tracker.Models
     {
         [Key]
         public int TransactionId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         public AppUser? User { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Select a category.")]

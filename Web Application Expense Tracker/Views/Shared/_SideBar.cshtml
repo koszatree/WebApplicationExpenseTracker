@@ -1,6 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
+
 @{
     List<Object> menuItems = new List<Object>();
 
@@ -10,17 +10,12 @@
         url = "/",
         iconCss = "fa-solid fa-box",
     });
+
     menuItems.Add(new
     {
         text = "Categories",
         url = "/Category",
         iconCss = "fa-solid fa-folder-closed"
-        // To fix - not working when you are already in category page
-        // items = new List<Object>()
-        // {
-        //     new {text = "Create", url = "Category/Create"},
-        //     new {text = "Edit", url = "Category/Edit"}
-        // }
     });
     menuItems.Add(new
     {
@@ -41,6 +36,14 @@
             <div class="w-100"></div>
                 <i id="sidebar-toggler" class="fa-solid"></i>
         </div>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a id="manage" >Hello @UserManager.GetUserName(User)!</a>
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login" method="post">
+                <button id="logout" type="submit" class="nav-link btn btn-link fw-bold" style="color: #6e0c0c;">Logout</button>
+            </form>
+        }
 
         <ejs-menu id="menu" orientation="Vertical" hamburgerMode="true" items="menuItems">
 

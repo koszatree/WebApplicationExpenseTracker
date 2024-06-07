@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using Web_Application_Expense_Tracker.Models;
 
 namespace Web_Application_Expense_Tracker.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,8 +27,11 @@ namespace Web_Application_Expense_Tracker.Controllers
         // GET: Transaction
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Transactions.Include(t => t.Category);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = _userManager.GetUserId(User);
+            var userTransactions = _context.Transactions
+                .Where(t => t.UserId == userId)
+                .Include(t => t.Category);
+            return View(await userTransactions.ToListAsync());
         }
 
         // GET: Transaction/Create
@@ -37,18 +42,31 @@ namespace Web_Application_Expense_Tracker.Controllers
         }
 
         // POST: Transaction/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("TransactionId,CategoryId,Amount,Date")] Transaction transaction)
         {
+            transaction.UserId = _userManager.GetUserId(User);
+
+            if (string.IsNullOrEmpty(transaction.UserId))
+            {
+                ModelState.AddModelError(nameof(transaction.UserId), "User ID is required.");
+            }
+
             if (ModelState.IsValid)
             {
+                
                 _context.Add(transaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            foreach (var error in errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+
             PopulateCategories();
             return View(transaction);
         }
@@ -61,7 +79,9 @@ namespace Web_Application_Expense_Tracker.Controllers
                 return NotFound();
             }
 
-            var transaction = await _context.Transactions.FindAsync(id);
+            var userId = _userManager.GetUserId(User);
+            var transaction = await _context.Transactions
+                .FirstOrDefaultAsync(t => t.TransactionId == id && t.UserId == userId);
             if (transaction == null)
             {
                 return NotFound();
@@ -71,8 +91,6 @@ namespace Web_Application_Expense_Tracker.Controllers
         }
 
         // POST: Transaction/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
@@ -82,10 +100,12 @@ namespace Web_Application_Expense_Tracker.Controllers
                 return NotFound();
             }
 
+            var userId = _userManager.GetUserId(User);
             if (ModelState.IsValid)
             {
                 try
                 {
+                    transaction.UserId = userId;
                     _context.Update(transaction);
                     await _context.SaveChangesAsync();
                 }
@@ -106,25 +126,6 @@ namespace Web_Application_Expense_Tracker.Controllers
             return View(transaction);
         }
 
-        // GET: Transaction/Delete/5
-        /*public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Transactions == null)
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transactions
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.TransactionId == id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            return View(transaction);
-        }*/
-
         // POST: Transaction/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -132,21 +133,23 @@ namespace Web_Application_Expense_Tracker.Controllers
         {
             if (_context.Transactions == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Transactions'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Transactions' is null.");
             }
-            var transaction = await _context.Transactions.FindAsync(id);
+            var userId = _userManager.GetUserId(User);
+            var transaction = await _context.Transactions
+                .FirstOrDefaultAsync(t => t.TransactionId == id && t.UserId == userId);
             if (transaction != null)
             {
                 _context.Transactions.Remove(transaction);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TransactionExists(int id)
         {
-          return (_context.Transactions?.Any(e => e.TransactionId == id)).GetValueOrDefault();
+            var userId = _userManager.GetUserId(User);
+            return _context.Transactions?.Any(e => e.TransactionId == id && e.UserId == userId) ?? false;
         }
 
         [NonAction]

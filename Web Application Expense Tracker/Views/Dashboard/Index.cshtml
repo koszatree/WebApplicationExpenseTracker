@@ -1,10 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     ViewData["isDashboard"] = true;
-}
 
+    var expenseColors = new string[]
+        {
+        "#FF0000", "#FF6347", "#FF4500", "#FF7F50", "#FFA07A",
+        "#DC143C", "#B22222", "#8B0000", "#800000", "#FF69B4",
+        "#FF1493", "#FFB6C1", "#FF8C00", "#FFD700", "#CD5C5C",
+        "#FF6347", "#800080", "#8A2BE2", "#9932CC", "#9370DB"
+        };
+    var incomeColors = new string[]
+    {
+        "#008000", "#00FF00", "#7FFF00", "#32CD32", "#98FB98",
+        "#90EE90", "#00FA9A", "#00FF7F", "#3CB371", "#2E8B57",
+        "#ADFF2F", "#7CFC00", "#7FFFD4", "#40E0D0", "#00CED1",
+        "#20B2AA", "#008B8B", "#008080", "#00FFFF", "#00FFFF"
+    };
+}
 
 <div class="row mb-4">
     <div class="col-md-4">
@@ -18,7 +29,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-4">
         <div class="d-flex flex-row widget summary expense">
             <div class="d-flex flex-column justify-content-center p-5">
@@ -42,34 +53,15 @@
             </div>
         </div>
     </div>
-
 </div>
 
-<div class="row mb-4">
-    <div class="col-md-4">
-        <div class="widget chart">
-            <div class="title p-4">
-                <h5 class="fw-bold text-center">Expense by Category</h5>
-            </div>
-            <ejs-accumulationchart id="donutchart" background="#0A1A2F00" enableSmartLabels="true">
-                <e-accumulation-series-collection>
-                    <e-accumulation-series dataSource="@ViewBag.DonutChartData" xName="categoryTitleWithIcon" yName="amount" innerRadius="50%" legendShape="Rectangle">
-                        <e-accumulationseries-datalabel name="formattedAmount" visible="true"></e-accumulationseries-datalabel>
-                    </e-accumulation-series>
-                </e-accumulation-series-collection>
-                <e-accumulationchart-legendsettings position="Top">
-                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
-                </e-accumulationchart-legendsettings>
-                <e-accumulationchart-tooltipsettings enable="true"></e-accumulationchart-tooltipsettings>
-            </ejs-accumulationchart>
-        </div>
-    </div>
+<div class="row">
     <div class="col-md-8">
         <div class="widget chart">
             <div class="title p-4">
                 <h5 class="fw-bold text-center">Income and Expense Comparison</h5>
             </div>
-            <ejs-chart id="splite-chart" background="#0A1A2F00" palettes=@(new string[] {"#65d420", "#de2c2c"})>
+            <ejs-chart id="splite-chart" background="#0A1A2F00" palettes=@(new string[]{"#65d420", "#de2c2c"})>
                 <e-chart-primaryxaxis valueType="Category">
                     <e-majorgridlines width="0"></e-majorgridlines>
                 </e-chart-primaryxaxis>
@@ -92,10 +84,8 @@
             </ejs-chart>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="widget">
             <div class="p-4">
                 <h5 class="fw-bold">Recent Transactions</h5>
@@ -112,3 +102,58 @@
         </div>
     </div>
 </div>
+
+<div class="row md-4 pt-4">
+    <div class="col-md-4">
+        <div class="widget chart">
+            <div class="title p-4">
+                <h5 class="fw-bold text-center">Expense by Category</h5>
+            </div>
+            <ejs-accumulationchart id="donutchart1" background="#0A1A2F00" enableSmartLabels="true">
+                <e-accumulation-series-collection>  
+                    <e-accumulation-series dataSource="@ViewBag.DonutChartDataExpense" xName="categoryTitleWithIcon" yName="amount" innerRadius="50%" legendShape="Rectangle">
+                        <e-accumulationseries-datalabel name="formattedAmount" visible="true"></e-accumulationseries-datalabel>
+                    </e-accumulation-series>
+                </e-accumulation-series-collection>
+                <e-accumulationchart-legendsettings position="Top">
+                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                </e-accumulationchart-legendsettings>
+                <e-accumulationchart-tooltipsettings enable="true"></e-accumulationchart-tooltipsettings>
+            </ejs-accumulationchart>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="widget chart">
+            <div class="title p-4">
+                <h5 class="fw-bold text-center">Income by Category</h5>
+            </div>
+            <ejs-accumulationchart id="donutchart2" background="#0A1A2F00" enableSmartLabels="true">
+                <e-accumulation-series-collection>
+                    <e-accumulation-series dataSource="@ViewBag.DonutChartDataIncome" xName="categoryTitleWithIcon" yName="amount" innerRadius="50%" legendShape="Rectangle">
+                        <e-accumulationseries-datalabel name="formattedAmount" visible="true"></e-accumulationseries-datalabel>
+                    </e-accumulation-series>
+                </e-accumulation-series-collection>
+                <e-accumulationchart-legendsettings position="Top">
+                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                </e-accumulationchart-legendsettings>
+                <e-accumulationchart-tooltipsettings enable="true"></e-accumulationchart-tooltipsettings>
+            </ejs-accumulationchart>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const expenseColors = @Html.Raw(Json.Serialize(expenseColors));
+        const incomeColors = @Html.Raw(Json.Serialize(incomeColors));
+
+        var expenseChart = document.getElementById('donutchart1').ej2_instances[0];
+        expenseChart.series[0].palettes = expenseColors;
+        expenseChart.refresh();
+
+        var incomeChart = document.getElementById('donutchart2').ej2_instances[0];
+        incomeChart.series[0].palettes = incomeColors;
+        incomeChart.refresh();
+    });
+</script>

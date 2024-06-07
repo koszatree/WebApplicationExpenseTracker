@@ -23,9 +23,10 @@
                     <ejs-textbox id="title" placeholder="Title" ejs-for="Title" floatLabelType="Always"></ejs-textbox>
                     <span asp-validation-for="Title" class="text-danger fs-6"></span>
                 </div>
-
                 <div class="mb-3">
-                    <ejs-textbox id="icon" placeholder="Icon" ejs-for="Icon" floatLabelType="Always"></ejs-textbox>
+                    <ejs-dropdownlist id="icon" placeholder="Icon" dataSource="@ViewBag.EmojiList" floatLabelType="Always">
+                        <e-dropdownlist-fields value="Icon" text="Icon"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
                     <span asp-validation-for="Icon" class="text-danger fs-6"></span>
                 </div>
 
@@ -39,6 +40,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@* @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-} *@

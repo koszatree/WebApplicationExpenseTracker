@@ -23,7 +23,6 @@ i {
 }
 
 body {
-    margin-bottom: 60px;
     background-color: #0B1D36;
     color: #ffff;
 }
@@ -104,12 +103,6 @@ nav.navbar {
     padding: 10px 10px;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
 * {
     font-family: 'Josefin Sans', sans-serif;
 }
@@ -146,6 +139,10 @@ footer {
     background-color: #fff;
     color: #212b36;
     border: 1px solid #fff;
+}
+
+.e-control {
+    font-size: 18px;
 }
 
 .widget {

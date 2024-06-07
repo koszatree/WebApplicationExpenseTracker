@@ -26,8 +26,4 @@
     <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="24.1.41" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\User\" />
-  </ItemGroup>
-
 </Project>
