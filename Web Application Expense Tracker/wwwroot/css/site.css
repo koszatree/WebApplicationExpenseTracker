@@ -1,7 +1,3 @@
-html {
-    font-size: 14px;
-}
-
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -9,6 +5,7 @@ html {
 }
 
 html {
+    font-size: 14px;
     position: relative;
     min-height: 100%;
     font-family: 'Josefin Sans';
@@ -48,6 +45,10 @@ nav.navbar {
             margin-left: 260px;
         }
 
+.dock-target {
+    min-height: 100vh;
+    height:stretch;
+}
 #menu {
     width: 100% !important;
     background-color: inherit;
@@ -118,6 +119,7 @@ nav.navbar {
 
 .e-bigger {
     font-size: x-large;
+    height: 100vh;
 }
 
 .e-btn-group.custom-rbt-group {
@@ -231,7 +233,7 @@ nav.navbar {
     padding: 10px 20px;
     overflow: hidden;
     color: rgb(171, 163, 152);
-    height: 100%;
+    height:stretch;
 }
 
     #sidebar .e-menu-wrapper {

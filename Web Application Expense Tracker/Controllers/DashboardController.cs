@@ -18,7 +18,7 @@ namespace Web_Application_Expense_Tracker.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            DateTime StartDate = DateTime.Today.AddDays(-6);
+            DateTime StartDate = DateTime.Today.AddDays(-29);
             DateTime EndDate = DateTime.Today;
 
             List<Transaction> SelectedTransactions = await _context.Transactions
@@ -85,11 +85,11 @@ namespace Web_Application_Expense_Tracker.Controllers
                 })
                 .ToList();
 
-            string[] Last7Days = Enumerable.Range(0,7)
+            string[] Last30Days = Enumerable.Range(0,30)
                 .Select(i => StartDate.AddDays(i).ToString("dd-MMM"))
                 .ToArray();
 
-            ViewBag.SplineChartData = from day in Last7Days
+            ViewBag.SplineChartData = from day in Last30Days
                                       join income in IncomeSummary on day equals income.day into dayIncomeJoined
                                       from income in dayIncomeJoined.DefaultIfEmpty()
                                       join expense in ExpenseSummary on day equals expense.day into dayExpenseJoined
@@ -116,7 +116,6 @@ namespace Web_Application_Expense_Tracker.Controllers
         public string day;
         public int income;
         public int expense;
-
 
     }
 }
