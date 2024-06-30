@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.EJ2.Charts;
 using System.Globalization;
+using Web_Application_Expense_Tracker.Areas.Identity.Data;
 using Web_Application_Expense_Tracker.Models;
 
 namespace Web_Application_Expense_Tracker.Controllers
@@ -11,28 +13,33 @@ namespace Web_Application_Expense_Tracker.Controllers
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public DashboardController(ApplicationDbContext context)
+        public DashboardController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
         public async Task<ActionResult> Index()
         {
+            var userId = _userManager.GetUserId(User);
+
             DateTime StartDate = DateTime.Today.AddDays(-29);
             DateTime EndDate = DateTime.Today;
 
             List<Transaction> SelectedTransactions = await _context.Transactions
                 .Include(x => x.Category)
-                .Where(y => y.Date >= StartDate && y.Date <= EndDate)
+                .Where(y => y.Date >= StartDate && y.Date <= EndDate && y.UserId == userId)
                 .ToListAsync();
 
             int TotalIncome = SelectedTransactions
-                .Where(i => i.Category.Type == "Income")
+                .Where(i => i.Category.Type == "Income" && i.UserId == userId)
                 .Sum(j => j.Amount);
             ViewBag.TotalIncome = TotalIncome.ToString("C0");
 
             int TotalExpense = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
+                .Where(i => i.Category.Type == "Expense" && i.UserId == userId)
                 .Sum(j => j.Amount);
             ViewBag.TotalExpense = TotalExpense.ToString("C0");
 
@@ -42,7 +49,7 @@ namespace Web_Application_Expense_Tracker.Controllers
             ViewBag.Balance = String.Format(culture, "{0:C0}", Balance);
 
             ViewBag.DonutChartDataExpense = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
+                .Where(i => i.Category.Type == "Expense" && i.UserId == userId)
                 .GroupBy(j => j.Category.CategoryId)
                 .Select(k => new
                 {
@@ -54,7 +61,7 @@ namespace Web_Application_Expense_Tracker.Controllers
                 .ToList();
 
             ViewBag.DonutChartDataIncome = SelectedTransactions
-                .Where(i => i.Category.Type == "Income")
+                .Where(i => i.Category.Type == "Income" && i.UserId == userId)
                 .GroupBy(j => j.Category.CategoryId)
                 .Select(k => new
                 {
@@ -66,7 +73,7 @@ namespace Web_Application_Expense_Tracker.Controllers
                 .ToList();
 
             List<SplineChartData> IncomeSummary = SelectedTransactions
-                .Where(i => i.Category.Type == "Income")
+                .Where(i => i.Category.Type == "Income" && i.UserId == userId)
                 .GroupBy(j => j.Date)
                 .Select(k => new SplineChartData()
                 {
@@ -76,7 +83,7 @@ namespace Web_Application_Expense_Tracker.Controllers
                 .ToList();
 
             List<SplineChartData> ExpenseSummary = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
+                .Where(i => i.Category.Type == "Expense" && i.UserId == userId)
                 .GroupBy(j => j.Date)
                 .Select(k => new SplineChartData()
                 {
